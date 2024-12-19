@@ -18,7 +18,7 @@ class Player:
         pygame.draw.line(window, (255, 0, 0), (self.x, self.y), (self.x + self.dx * 50, self.y + self.dy * 50), 5)
     
     def detect_collision_wall(self, dx, dy):
-        next_rect = copy(self.collision)
+        next_rect = copy.copy(self.collision)
         next_rect.move_ip(dx, dy)
         hit_indexes = next_rect.collidelistall(settings.collisions)
 
@@ -53,25 +53,23 @@ class Player:
                 self.angle += 2 * pi
             if self.angle > 2 * pi:
                 self.angle -= 2 * pi
-            self.dx = cos(self.angle) * 0.6
-            self.dy = sin(self.angle) * 0.6
             
         if pygame.key.get_pressed()[pygame.K_w]:
-            self.x += self.dx * settings.PLAYER_SPEED * funcs.delta_time()
-            self.y += self.dy * settings.PLAYER_SPEED * funcs.delta_time()
+            self.dx = cos(self.angle) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.dy = sin(self.angle) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.detect_collision_wall(self.dx, self.dy)
             
         if pygame.key.get_pressed()[pygame.K_s]:
-            self.x -= self.dx * settings.PLAYER_SPEED * funcs.delta_time()
-            self.y -= self.dy * settings.PLAYER_SPEED * funcs.delta_time()
+            self.dx = cos(self.angle) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.dy = sin(self.angle) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.detect_collision_wall(-self.dx, -self.dy)
             
         if pygame.key.get_pressed()[pygame.K_a]:  
-            self.dx = cos(self.angle + pi / 2) * 0.6
-            self.dy = sin(self.angle + pi / 2) * 0.6
-            self.x -= self.dx * settings.PLAYER_SPEED * funcs.delta_time()
-            self.y -= self.dy * settings.PLAYER_SPEED * funcs.delta_time()
+            self.dx = cos(self.angle + pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.dy = sin(self.angle + pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.detect_collision_wall(-self.dx, -self.dy)
             
         if pygame.key.get_pressed()[pygame.K_d]:
-            self.dx = cos(self.angle - pi / 2) * 0.6
-            self.dy = sin(self.angle - pi / 2) * 0.6
-            self.x -= self.dx * settings.PLAYER_SPEED * funcs.delta_time()
-            self.y -= self.dy * settings.PLAYER_SPEED * funcs.delta_time()
+            self.dx = cos(self.angle - pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.dy = sin(self.angle - pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.detect_collision_wall(-self.dx, -self.dy)
