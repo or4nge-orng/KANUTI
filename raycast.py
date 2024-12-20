@@ -53,7 +53,7 @@ def raycast(window, player):
             draw_end = settings.HEIGHT - 1
         
         
-        c = 255 / (1 + line_height ** 2 * 0.0000008)
+        c = 255 / (1 + line_height ** 2 * 0.000002)
         color = (255 - c % 255, 255 - c % 255, 255 - c % 255)
         scale = settings.WIDTH // settings.RAY_NUM
         pygame.draw.line(window, color, (scale * ray, draw_end), (scale * ray, draw_start), scale)
