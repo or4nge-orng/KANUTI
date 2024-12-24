@@ -12,7 +12,6 @@ def raycast(window, player):
                       'bottom': BS - (player.y - player.y // BS * BS)}
     for ray in range(settings.RAY_NUM):
         ray_angle = player.angle - settings.HALF_FOV + settings.dr * ray
-        #ray_angle = player.angle
         cos_a, sin_a = math.cos(ray_angle), math.sin(ray_angle)
         vl, hl = 0, 0
         for k in range(settings.MAP_SIZE):
@@ -36,9 +35,7 @@ def raycast(window, player):
             block = xh // BS * BS, yh // BS * BS
             if block in settings.block_map:
                 break
-            
 
-        
         ray_size = min(vl, hl) / BS
         toX, toY = ray_size * math.cos(ray_angle) + player.x, ray_size * math.sin(ray_angle) + player.y
         #pygame.draw.line(window, 'red', (player.x, player.y), (toX, toY), 1)
@@ -51,8 +48,7 @@ def raycast(window, player):
         draw_end = line_height / 2 + half_height
         if draw_end >= settings.HEIGHT:
             draw_end = settings.HEIGHT - 1
-        
-        
+
         c = 255 / (1 + line_height ** 2 * 0.000002)
         color = (255 - c % 255, 255 - c % 255, 255 - c % 255)
         scale = settings.WIDTH // settings.RAY_NUM

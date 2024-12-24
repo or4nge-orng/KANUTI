@@ -2,7 +2,6 @@ import pygame
 import settings
 
 
-
 class Level:
     def __init__(self):
         self.map = ['11111111',
