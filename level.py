@@ -4,20 +4,10 @@ import settings
 
 class Level:
     def __init__(self):
-        self.map = ['11111111',
-                    '10000001',
-                    '10000001',
-                    '10011001',
-                    '10010001',
-                    '10000001',
-                    '10000001',
-                    '11111111']
+        self.map = {}
+        for x in settings.MAP_SIZE:
+            for y in settings.MAP_SIZE:
+                self.map[(x, y)] = 1
         
-    def draw_level(self, window):
-        for row in range(len(self.map)):
-            for col in range(len(self.map[row])):
-                if self.map[row][col] == '1':
-                    pygame.draw.rect(window, (255, 255, 255), (col * settings.BLOCKSIZE,
-                                                               row * settings.BLOCKSIZE,
-                                                               settings.BLOCKSIZE - 1,
-                                                               settings.BLOCKSIZE - 1))
+    def gen_maze(self, window):
+        pass
