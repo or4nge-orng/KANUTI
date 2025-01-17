@@ -7,7 +7,7 @@ WIDTH = 1600
 HEIGHT = 900
 BLOCKSIZE = 100
 RAY_NUM = 400
-MAP_SIZE = 39
+MAP_SIZE = 11
 DEPTH_NUM = MAP_SIZE * BLOCKSIZE
 
 PLAYER_SPEED = 1000
@@ -19,11 +19,11 @@ block_map = set()
 collisions = []
 
 yBlock = 0
-for i in Level().map:
+""" for i in Level().map:
     xBlock = 0
     for j in i:
         if j == '1':
             block_map.add((xBlock, yBlock))
             collisions.append(pygame.Rect(xBlock, yBlock, BLOCKSIZE, BLOCKSIZE))
         xBlock += BLOCKSIZE
-    yBlock += BLOCKSIZE
+    yBlock += BLOCKSIZE """

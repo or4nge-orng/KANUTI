@@ -6,8 +6,8 @@ import settings, funcs, copy
 class Player:
     def __init__(self):
         self.dt = 0
-        self.x = 450
-        self.y = 450
+        self.x = 150
+        self.y = 150
         self.angle = 0
         self.dx = cos(self.angle) * 0.6
         self.dy = sin(self.angle) * 0.6
