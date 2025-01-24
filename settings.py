@@ -23,6 +23,11 @@ for coor in level.map:
     if level.map[coor] == 1:
         block_map.add((coor[0] * BLOCKSIZE, coor[1] * BLOCKSIZE))
 
+for y in range(level.map_size):
+    for x in range(level.map_size):
+        print(level.map[(x, y)], end='')
+    print()
+
 
 def draw_level(window):
     for coor in block_map:

@@ -1,14 +1,11 @@
 import pygame
 import pygame_widgets
 import sys
-import pprint
-
 import pygame_widgets.button
+
 import settings
 import funcs
-
 import raycast
-from level import Level
 from player import Player
 
 window_size = settings.WIDTH, settings.HEIGHT
@@ -66,6 +63,7 @@ def main():
         settings.draw_level(window)
         clock.tick(settings.FPS)
         pygame.display.update()
+
 
 if __name__ == '__main__':
     main()
