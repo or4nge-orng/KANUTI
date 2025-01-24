@@ -19,11 +19,11 @@ block_map = set()
 collisions = []
 
 yBlock = 0
-""" for i in Level().map:
+for i in Level().map:
     xBlock = 0
     for j in i:
         if j == '1':
             block_map.add((xBlock, yBlock))
             collisions.append(pygame.Rect(xBlock, yBlock, BLOCKSIZE, BLOCKSIZE))
         xBlock += BLOCKSIZE
-    yBlock += BLOCKSIZE """
+    yBlock += BLOCKSIZE
