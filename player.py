@@ -14,8 +14,8 @@ class Player:
         self.collision = pygame.Rect(self.x, self.y, 50, 50)
         
     def draw_player(self, window):
-        pygame.draw.circle(window, (255, 0, 0), (self.x, self.y), 10)  
-        pygame.draw.line(window, (255, 0, 0), (self.x, self.y), (self.x + self.dx * 50, self.y + self.dy * 50), 5)
+        pygame.draw.circle(window, (255, 0, 0), (self.x // 2, self.y // 2), 10)
+        pygame.draw.line(window, (255, 0, 0), (self.x // 2, self.y // 2), (self.x + self.dx * 50, self.y + self.dy * 50), 5)
     
     def detect_collision_wall(self, dx, dy):
         next_rect = copy.copy(self.collision)
