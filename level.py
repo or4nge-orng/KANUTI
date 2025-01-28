@@ -7,7 +7,7 @@ NORTH, SOUTH, EAST, WEST = 'n', 's', 'e', 'w'
 class Level:
     def __init__(self):
         self.map = {}
-        self.map_size = 19
+        self.map_size = settings.MAP_SIZE
         for x in range(self.map_size):
             for y in range(self.map_size):
                 self.map[(x, y)] = 1
@@ -17,20 +17,6 @@ class Level:
         self.hasVisited = [(1, 1)]
         self.gen_maze(1, 1)
 
-    def print_maze(self):
-        for y in range(self.map_size):
-            for x in range(self.map_size):
-                print(self.map[(x, y)], end='')
-            print()
-        print()
-
-    def draw_level(self, window):
-        for coor in self.map:
-            if self.map[coor] == 1:
-                pygame.draw.rect(window, (255, 255, 255), (coor[0] * 50,
-                                                           coor[1] * 50,
-                                                           50 - 1,
-                                                           50 - 1))
         
     def gen_maze(self, x, y):
         self.map[(x, y)] = 0
@@ -64,21 +50,26 @@ class Level:
                 # Move the mark to an unvisited neighboring space:
 
                 if nextIntersection == NORTH:
-                    nextX = x
-                    nextY = y - 2
+                    self.nextX = x
+                    self.nextY = y - 2
                     self.map[(x, y - 1)] = 0  # Connecting hallway.
                 elif nextIntersection == SOUTH:
-                    nextX = x
-                    nextY = y + 2
+                    self.nextX = x
+                    self.nextY = y + 2
                     self.map[(x, y + 1)] = 0  # Connecting hallway.
                 elif nextIntersection == WEST:
-                    nextX = x - 2
-                    nextY = y
+                    self.nextX = x - 2
+                    self.nextY = y
                     self.map[(x - 1, y)] = 0  # Connecting hallway.
                 elif nextIntersection == EAST:
-                    nextX = x + 2
-                    nextY = y
+                    self.nextX = x + 2
+                    self.nextY = y
                     self.map[(x + 1, y)] = 0  # Connecting hallway.
 
-                self.hasVisited.append((nextX, nextY))  # Mark as visited.
-                self.gen_maze(nextX, nextY)  # Recursively visit this space.
+                self.hasVisited.append((self.nextX, self.nextY))  # Mark as visited.
+                self.gen_maze(self.nextX, self.nextY)  # Recursively visit this space.
+                
+    def check_player_finished(self, player) -> bool:
+        return (int(player.x) in range(self.nextX * settings.BLOCKSIZE, self.nextX * settings.BLOCKSIZE + settings.BLOCKSIZE)) and \
+              (int(player.y) in range(self.nextY * settings.BLOCKSIZE, self.nextY * settings.BLOCKSIZE + settings.BLOCKSIZE))
+            

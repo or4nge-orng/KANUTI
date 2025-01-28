@@ -1,6 +1,6 @@
 import pygame
 from math import sin, cos, pi
-import settings, funcs, copy
+import settings, funcs
 
 
 class Player:
@@ -15,34 +15,20 @@ class Player:
         
     def draw_player(self, window):
         pygame.draw.circle(window, (255, 0, 0), (self.x // 2, self.y // 2), 10)
-        pygame.draw.line(window, (255, 0, 0), (self.x // 2, self.y // 2), (self.x + self.dx * 50, self.y + self.dy * 50), 5)
+        pygame.draw.line(window, (255, 0, 0), (self.x // 2, self.y // 2), (self.x + abs(self.dx) * 50, self.y + abs(self.dy) * 50), 5)
     
     def detect_collision_wall(self, dx, dy):
-        next_rect = copy.copy(self.collision)
-        next_rect.move_ip(dx, dy)
-        hit_indexes = next_rect.collidelistall(settings.collisions)
-
-        if len(hit_indexes):
-            delta_x, delta_y = 0, 0
-            for hit_index in hit_indexes:
-                hit_rect = settings.collisions[hit_index]
-                if dx > 0:
-                    delta_x += next_rect.right - hit_rect.left
-                else:
-                    delta_x += hit_rect.right - next_rect.left
-                if dy > 0:
-                    delta_y += next_rect.bottom - hit_rect.top
-                else:
-                    delta_y += hit_rect.bottom - next_rect.top
-            if abs(delta_x - delta_y) < 50:
-                dx, dy = 0, 0
-            elif delta_x > delta_y:
-                dy = 0
-            elif delta_y > delta_x:
-                dx = 0
-
-        self.x += dx
-        self.y += dy
+        y = int((self.y + dy) / settings.BLOCKSIZE)
+        x = int((self.x + dx) / settings.BLOCKSIZE)
+        
+        if settings.level.map[(x, y)]:
+            self.x += 0
+            self.y += 0
+        else:
+            self.x += dx
+            self.y += dy
+            
+        
     
     def move(self):
         if pygame.mouse.get_focused():
@@ -60,16 +46,17 @@ class Player:
             self.detect_collision_wall(self.dx, self.dy)
             
         if pygame.key.get_pressed()[pygame.K_s]:
-            self.dx = cos(self.angle) * funcs.delta_time() * settings.PLAYER_SPEED
-            self.dy = sin(self.angle) * funcs.delta_time() * settings.PLAYER_SPEED
-            self.detect_collision_wall(-self.dx, -self.dy)
+            self.dx = cos(self.angle + pi) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.dy = sin(self.angle + pi) * funcs.delta_time() * settings.PLAYER_SPEED
+            self.detect_collision_wall(self.dx, self.dy)
+
             
-        if pygame.key.get_pressed()[pygame.K_a]:  
+        if pygame.key.get_pressed()[pygame.K_d]:  
             self.dx = cos(self.angle + pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
             self.dy = sin(self.angle + pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
-            self.detect_collision_wall(-self.dx, -self.dy)
+            self.detect_collision_wall(self.dx, self.dy)
             
-        if pygame.key.get_pressed()[pygame.K_d]:
+        if pygame.key.get_pressed()[pygame.K_a]:
             self.dx = cos(self.angle - pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
             self.dy = sin(self.angle - pi / 2) * funcs.delta_time() * settings.PLAYER_SPEED
-            self.detect_collision_wall(-self.dx, -self.dy)
+            self.detect_collision_wall(self.dx, self.dy)

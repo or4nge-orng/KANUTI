@@ -47,6 +47,7 @@ def main():
     window = pygame.display.set_mode(window_size)
     clock = pygame.time.Clock()
     start_menu(window)
+    level = settings.level
     player = Player()
     while True:
         window.fill('black')
@@ -59,6 +60,7 @@ def main():
 
         raycast.raycast(window, player)
         player.move()
+        level.check_player_finished(player)
         player.draw_player(window)
         settings.draw_level(window)
         clock.tick(settings.FPS)
