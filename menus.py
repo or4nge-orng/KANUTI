@@ -17,7 +17,6 @@ def set_username_check():
 
 def check_username(username):
     keys = pygame.key.get_pressed()
-    print(settings.player_records.index)
     if keys[pygame.K_RETURN] and username in settings.player_records.index and username:
         return True
     elif keys[pygame.K_RETURN] and username not in settings.player_records.index and username:

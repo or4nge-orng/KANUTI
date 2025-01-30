@@ -9,7 +9,7 @@ WIDTH = 1600
 HEIGHT = 900
 BLOCKSIZE = 100
 RAY_NUM = WIDTH // 4
-MAP_SIZE = 9
+MAP_SIZE = 19
 DEPTH_NUM = MAP_SIZE * BLOCKSIZE
 
 PLAYER_SPEED = 1000
@@ -36,11 +36,6 @@ def create_block_map():
             
 
 create_block_map()
-
-for y in range(level.map_size):
-    for x in range(level.map_size):
-        print(level.map[(x, y)], end='')
-    print()
 
 
 def draw_level(window):
