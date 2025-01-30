@@ -68,8 +68,17 @@ class Level:
 
                 self.hasVisited.append((self.nextX, self.nextY))  # Mark as visited.
                 self.gen_maze(self.nextX, self.nextY)  # Recursively visit this space.
+              
+    def reset_level(self):
+        self.map = {}
+        self.map_size = settings.MAP_SIZE
+        for x in range(self.map_size):
+            for y in range(self.map_size):
+                self.map[(x, y)] = 1
                 
-    def check_player_finished(self, player) -> bool:
-        return (int(player.x) in range(self.nextX * settings.BLOCKSIZE, self.nextX * settings.BLOCKSIZE + settings.BLOCKSIZE)) and \
-              (int(player.y) in range(self.nextY * settings.BLOCKSIZE, self.nextY * settings.BLOCKSIZE + settings.BLOCKSIZE))
-            
+        self.nextX = 0
+        self.nextY = 0
+        self.hasVisited = [(1, 1)]
+        self.gen_maze(1, 1)
+        
+        

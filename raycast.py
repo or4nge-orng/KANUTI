@@ -37,7 +37,9 @@ def raycast(window, player):
                 break
 
         ray_size = min(vl, hl) / BS
-        toX, toY = ray_size * math.cos(ray_angle) + player.x, ray_size * math.sin(ray_angle) + player.y
+        
+        toX, toY = ray_size * BS * math.cos(ray_angle) + player.x, \
+            ray_size * BS * math.sin(ray_angle) + player.y
         #pygame.draw.line(window, 'red', (player.x, player.y), (toX, toY), 1)
         ray_size *= math.cos(ray_angle - player.angle - 0.0001)
         line_height = settings.HEIGHT // ray_size
@@ -48,8 +50,15 @@ def raycast(window, player):
         draw_end = line_height / 2 + half_height
         if draw_end >= settings.HEIGHT:
             draw_end = settings.HEIGHT - 1
-
+        #print((vl, hl), (settings.level.nextX, settings.level.nextY))
+        #print(int(player.x), int(player.y), int(toX), int(toY))
         c = 255 / (1 + line_height ** 2 * 0.000002)
-        color = (255 - c % 255, 255 - c % 255, 255 - c % 255)
         scale = settings.WIDTH // settings.RAY_NUM
-        pygame.draw.line(window, color, (scale * ray, draw_end), (scale * ray, draw_start), scale)
+        if settings.finish.clipline((player.x, player.y), (toX, toY)):
+            pygame.draw.line(window, (255 - c % 255, 0, 0),
+                            (scale * ray, draw_end), (scale * ray, draw_start), scale)
+        else:
+            pygame.draw.line(window, (255 - c % 255, 255 - c % 255, 255 - c % 255),
+                            (scale * ray, draw_end), (scale * ray, draw_start), scale)
+
+        
