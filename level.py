@@ -72,6 +72,7 @@ class Level:
     def reset_level(self):
         self.map = {}
         self.map_size = settings.MAP_SIZE
+        settings.block_map = set()
         for x in range(self.map_size):
             for y in range(self.map_size):
                 self.map[(x, y)] = 1

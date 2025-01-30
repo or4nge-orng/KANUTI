@@ -15,7 +15,6 @@ class Player:
         
     def draw_player(self, window):
         pygame.draw.circle(window, (255, 0, 0), (self.x, self.y), 10)
-        pygame.draw.line(window, (255, 0, 0), (self.x, self.y), (self.x + self.dx * 100, self.y + self.dy * 100), 5)
     
     def detect_collision_wall(self, dx, dy):
         y = int((self.y + dy) / settings.BLOCKSIZE)

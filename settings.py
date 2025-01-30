@@ -1,5 +1,6 @@
 from math import pi
 from level import Level
+import pandas as pd
 import pygame
 
 
@@ -8,26 +9,33 @@ WIDTH = 1600
 HEIGHT = 900
 BLOCKSIZE = 100
 RAY_NUM = WIDTH // 4
-MAP_SIZE = 5
+MAP_SIZE = 9
 DEPTH_NUM = MAP_SIZE * BLOCKSIZE
 
 PLAYER_SPEED = 1000
 FOV = pi / 2
 HALF_FOV = FOV / 2
 dr = FOV / (RAY_NUM - 1)
+username = ''
+points = 0
+paused = False
+player_records = pd.read_csv('data/players.csv', delimiter=';', index_col='username')
 
 level = Level()
 
 block_map = set()
 collisions = []
-finish = pygame.rect.Rect(level.nextX * BLOCKSIZE, level.nextY * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE)
 
-print(finish.topleft)
+def create_block_map():
+    for coor in level.map:
+        if level.map[coor] == 1:
+            block_map.add((coor[0] * BLOCKSIZE, coor[1] * BLOCKSIZE))
+            
+    global finish
+    finish = pygame.rect.Rect(level.nextX * BLOCKSIZE, level.nextY * BLOCKSIZE, BLOCKSIZE, BLOCKSIZE)
+            
 
-for coor in level.map:
-    if level.map[coor] == 1:
-        block_map.add((coor[0] * BLOCKSIZE, coor[1] * BLOCKSIZE))
-
+create_block_map()
 
 for y in range(level.map_size):
     for x in range(level.map_size):
