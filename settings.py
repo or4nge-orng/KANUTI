@@ -3,10 +3,11 @@ from level import Level
 import pandas as pd
 import pygame
 
+pygame.init()
 
 FPS = 120
-WIDTH = 1600
-HEIGHT = 900
+WIDTH = pygame.display.Info().current_w
+HEIGHT = pygame.display.Info().current_h
 BLOCKSIZE = 100
 RAY_NUM = WIDTH // 4
 MAP_SIZE = 19

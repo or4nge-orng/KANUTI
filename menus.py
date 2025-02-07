@@ -3,7 +3,6 @@ import pygame_widgets
 from pygame_widgets.button import Button
 from pygame_widgets.textbox import TextBox
 import sys
-import pandas as pd
 
 import settings
     
@@ -27,6 +26,8 @@ def check_username(username):
 
 
 def start_menu():
+    pygame.display.set_caption('KA-NU-TI: Run from your destiny')
+    pygame.mouse.set_visible(True)
     menu_font = pygame.font.SysFont('arial', 30, bold=True)
     window = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
     
@@ -64,6 +65,8 @@ def start_menu():
         
 
 def pause_menu(window, cur_level_points):
+    pygame.display.set_caption('KA-NU-TI: Run from your destiny')
+    pygame.mouse.set_visible(True)
     menu_font = pygame.font.SysFont('arial', 30, bold=True)
     if 'name_input' in globals():
         global name_input
@@ -105,6 +108,8 @@ def pause_menu(window, cur_level_points):
         
         
 def level_change_menu(window):
+    pygame.display.set_caption('KA-NU-TI: Run from your destiny')
+    pygame.mouse.set_visible(True)
     if 'name_input' in globals():
         global name_input
         del name_input

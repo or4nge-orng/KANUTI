@@ -1,7 +1,6 @@
 import pygame
 import math
 import settings
-from level import Level
 
 
 def raycast(window, player):

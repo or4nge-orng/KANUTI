@@ -1,6 +1,5 @@
 import pygame
 import sys
-import pandas as pd
 
 import settings
 import funcs
@@ -16,6 +15,7 @@ def main(level_num):
     window = pygame.display.set_mode(window_size)
     clock = pygame.time.Clock()
     pygame.display.set_caption('KA-NU-TI: Run from your destiny')
+    pygame.mouse.set_visible(False)
     font = pygame.font.SysFont('arial', 30, bold=True)
     level_txt = font.render(f'Level {level_num}', True, 'black')
     counter = 1
@@ -55,6 +55,7 @@ def main(level_num):
             main(level_num)
 
         if settings.paused:
+            
             menus.pause_menu(window, cur_level_points)
         else:
             raycast.raycast(window, player)
